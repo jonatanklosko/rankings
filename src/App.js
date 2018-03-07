@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import Reboot from 'material-ui/Reboot';
+
 import './App.css';
 
 export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <span>App is running!</span>
+      <div>
+        <Reboot />
       </div>
     );
   }

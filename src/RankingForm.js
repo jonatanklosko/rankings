@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
+import WcaPersonSelect from './WcaPersonSelect';
+
 export default class RankingForm extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +31,7 @@ export default class RankingForm extends Component {
           value={this.state.name}
           onChange={this.handleNameChange}
         />
+        <WcaPersonSelect />
         <div>
           <Button type="submit" variant="raised" color="primary">Done</Button>
         </div>

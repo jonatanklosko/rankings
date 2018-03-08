@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import _ from 'lodash';
 
-import WcaPersonSelect from './WcaPersonSelect';
+import EditablePeopleList from './EditablePeopleList';
 
 export default class RankingForm extends Component {
   constructor(props) {
@@ -21,6 +17,8 @@ export default class RankingForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.addPerson = this.addPerson.bind(this);
+    this.removePerson = this.removePerson.bind(this);
   }
 
   handleSubmit(event) {
@@ -60,22 +58,7 @@ export default class RankingForm extends Component {
               </Grid>
               <Grid item>
                 <Typography variant="subheading">People</Typography>
-                <List dense>
-                  {this.state.people.map(person => (
-                    <ListItem key={person.wcaId}>
-                      <Avatar src={person.avatar.thumbUrl} />
-                      <ListItemText primary={person.name} />
-                      <ListItemSecondaryAction>
-                        <IconButton onClick={() => this.removePerson(person)}>
-                          <Icon>delete</Icon>
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
-                </List>
-              </Grid>
-              <Grid item>
-                <WcaPersonSelect fullWidth label="Add person" onChange={person => this.addPerson(person)} />
+                <EditablePeopleList people={this.state.people} onPersonAdded={this.addPerson} onPersonRemoved={this.removePerson} />
               </Grid>
               <Grid item>
                 <Button type="submit" variant="raised" color="primary">Done</Button>

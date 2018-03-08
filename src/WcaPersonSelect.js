@@ -38,7 +38,7 @@ export default class WcaPersonSelect extends Component {
       >
         {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
           <div className="wca-person-select">
-            <TextField {...getInputProps({ label: this.props.label })} />
+            <TextField {...getInputProps({ fullWidth: this.props.fullWidth, label: this.props.label })} />
             {isOpen && (
               <Paper square className="options-list">
                 {this.state.peopleFound.map((person, index) => (

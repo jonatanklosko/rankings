@@ -50,8 +50,7 @@ export default class WcaPersonSelect extends Component {
                     <Avatar src={person.avatar.thumbUrl} />
                     <ListItemText primary={person.name} secondary={person.wcaId} />
                   </MenuItem>
-                ))
-                }
+                ))}
               </Paper>
             )}
           </div>

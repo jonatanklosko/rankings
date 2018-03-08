@@ -23,7 +23,7 @@ export default class EditablePeopleList extends Component {
             </ListItem>
           ))}
         </List>
-        <WcaPersonSelect fullWidth label="Add person" onChange={person => this.props.onPersonAdded(person)} />
+        <WcaPersonSelect fullWidth label="Add person" clearOnChange onChange={person => this.props.onPersonAdded(person)} />
       </div>
     );
   }

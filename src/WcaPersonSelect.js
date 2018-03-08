@@ -17,6 +17,7 @@ export default class WcaPersonSelect extends Component {
       peopleFound: []
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.findPeopleDebounced = _.debounce(this.findPeople.bind(this), 300);
   }
 
@@ -29,10 +30,15 @@ export default class WcaPersonSelect extends Component {
     }
   }
 
+  handleChange(person, { reset }) {
+    this.props.clearOnChange && reset({ inputValue: '' });
+    this.props.onChange(person);
+  }
+
   render() {
     return (
       <Downshift
-        onChange={this.props.onChange}
+        onChange={this.handleChange}
         itemToString={person => _.get(person, 'name', '')}
         onInputValueChange={this.findPeopleDebounced}
       >

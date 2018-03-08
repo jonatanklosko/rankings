@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/Icon';
+import Typography from 'material-ui/Typography';
 import _ from 'lodash';
 
 import WcaPersonSelect from './WcaPersonSelect';
@@ -15,7 +20,6 @@ export default class RankingForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePersonSelectChange = this.handlePersonSelectChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -26,8 +30,16 @@ export default class RankingForm extends Component {
     this.setState({ name: event.target.value });
   }
 
-  handlePersonSelectChange(person) {
-    this.setState({ people: _.uniqBy([...this.state.people, person], 'wcaId') });
+  addPerson(person) {
+    this.setState({
+      people: _.uniqBy([...this.state.people, person], 'wcaId')
+    });
+  }
+
+  removePerson(person) {
+    this.setState({
+      people: _.reject(this.state.people, { wcaId: person.wcaId })
+    })
   }
 
   render() {
@@ -38,7 +50,21 @@ export default class RankingForm extends Component {
           value={this.state.name}
           onChange={this.handleNameChange}
         />
-        <WcaPersonSelect onChange={this.handlePersonSelectChange} />
+      <Typography variant="subheading">People</Typography>
+        <List dense>
+          {this.state.people.map(person => (
+            <ListItem key={person.wcaId}>
+              <Avatar src={person.avatar.thumbUrl} />
+              <ListItemText primary={person.name} />
+              <ListItemSecondaryAction>
+                <IconButton onClick={() => this.removePerson(person)}>
+                  <Icon>delete</Icon>
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+        <WcaPersonSelect label="Add person" onChange={person => this.addPerson(person)} />
         <div>
           <Button type="submit" variant="raised" color="primary">Done</Button>
         </div>

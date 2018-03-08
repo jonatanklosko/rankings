@@ -7,6 +7,8 @@ import Avatar from 'material-ui/Avatar';
 import Downshift from 'downshift';
 import _ from 'lodash';
 
+import WcaApi from './WcaApi';
+
 export default class WcaPersonSelect extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +21,8 @@ export default class WcaPersonSelect extends Component {
 
   findPeople(query) {
     if (query) {
-      fetch(`https://www.worldcubeassociation.org/api/v0/search/users?persons_table=true&q=${query}`)
-        .then(response => response.json())
-        .then(({ result }) => this.setState({ peopleFound: _.take(result, 5) }));
+      WcaApi.searchPeople(query)
+        .then(people => this.setState({ peopleFound: _.take(people, 5) }));
     } else {
       this.setState({ peopleFound: [] });
     }
@@ -45,8 +46,8 @@ export default class WcaPersonSelect extends Component {
                     selected: highlightedIndex === index,
                     key: person.id
                   })}>
-                    <Avatar src={person.avatar.thumb_url} />
-                    <ListItemText primary={person.name} secondary={person.wca_id} />
+                    <Avatar src={person.avatar.thumbUrl} />
+                    <ListItemText primary={person.name} secondary={person.wcaId} />
                   </MenuItem>
                 ))
                 }

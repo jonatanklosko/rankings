@@ -30,9 +30,9 @@ export default class WcaPersonSelect extends Component {
     }
   }
 
-  handleChange(person, { reset }) {
-    this.props.clearOnChange && reset({ inputValue: '' });
-    this.props.onChange(person);
+  handleChange(person, { clearSelection }) {
+    person && this.props.onChange(person);
+    this.props.clearOnChange && clearSelection();
   }
 
   render() {

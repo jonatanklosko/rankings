@@ -7,6 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import Downshift from 'downshift';
 import _ from 'lodash';
 
+import './WcaPersonSelect.css';
 import WcaApi from './WcaApi';
 
 export default class WcaPersonSelect extends Component {
@@ -31,15 +32,15 @@ export default class WcaPersonSelect extends Component {
   render() {
     return (
       <Downshift
-        onChange={person => alert(_.get(person, 'name'))}
+        onChange={this.props.onChange}
         itemToString={person => _.get(person, 'name', '')}
         onInputValueChange={this.findPeopleDebounced}
       >
         {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
-          <div>
-            <TextField {...getInputProps({ fullWidth: true, label: 'Person' })} />
+          <div className="wca-person-select">
+            <TextField {...getInputProps({ label: 'Person' })} />
             {isOpen && (
-              <Paper square>
+              <Paper square className="options-list">
                 {this.state.peopleFound.map((person, index) => (
                   <MenuItem {...getItemProps({
                     item: person,

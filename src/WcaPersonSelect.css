@@ -1,0 +1,13 @@
+.wca-person-select {
+  display: inline;
+  position: relative;
+}
+
+.wca-person-select .options-list {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  left: 0;
+  margin-top: 8px;
+}

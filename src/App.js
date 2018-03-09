@@ -5,6 +5,7 @@ import Reboot from 'material-ui/Reboot';
 import Navigation from './Navigation';
 import Home from './Home';
 import RankingForm from './RankingForm';
+import Ranking from './Ranking';
 
 export default class App extends Component {
   render() {
@@ -16,6 +17,7 @@ export default class App extends Component {
 
           <Route exact path="/" component={Home}/>
           <Route path="/edit" component={RankingForm}/>
+          <Route path="/show" component={Ranking}/>
         </div>
       </Router>
     );

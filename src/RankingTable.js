@@ -3,39 +3,66 @@ import Paper from 'material-ui/Paper';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 
+import './RankingTable.css';
 import Helpers from './helpers';
 
 export default class RankingTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      format: 'single'
+    };
+  }
+
+  setFormat(format) {
+    this.setState({ format });
+  }
+
   formattedPersonalBest(personData, format) {
     const eventId = this.props.event.id;
     const result = _.get(personData, `personalRecords.${eventId}.${format}.best`);
     return result ? Helpers.resultToString(result, eventId, format) : '';
   }
 
+  peopleData() {
+    const eventId = this.props.event.id;
+    return _(this.props.peopleData)
+      .filter(`personalRecords.${eventId}.${this.state.format}`)
+      .orderBy([`personalRecords.${eventId}.${this.state.format}.localRank`])
+      .value();
+  }
+
   render() {
     return (
       <Paper>
-        <Table>
-          <TableHead>
+        <Table className={`sort-by-${this.state.format}`}>
+          <TableHead className="ranking-table-head">
             <TableRow>
               <TableCell></TableCell>
               <TableCell>Name</TableCell>
-              <TableCell numeric>Single</TableCell>
-              <TableCell numeric>Average</TableCell>
+              <TableCell numeric className="single" onClick={() => this.setFormat('single')}>
+                Single
+              </TableCell>
+              <TableCell numeric className="average" onClick={() => this.setFormat('average')}>
+                Average
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.peopleData
-              .filter(personData => personData.personalRecords[this.props.event.id])
-              .map((personData, index) => (
-                <TableRow key={personData.person.wcaId}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{personData.person.name}</TableCell>
-                  <TableCell numeric>{this.formattedPersonalBest(personData, 'single')}</TableCell>
-                  <TableCell numeric>{this.formattedPersonalBest(personData, 'average')}</TableCell>
-                </TableRow>
-              )
-            )}
+            {this.peopleData().map(personData => (
+              <TableRow key={personData.person.wcaId}>
+                <TableCell>
+                  {personData.personalRecords[this.props.event.id][this.state.format].localRank}
+                </TableCell>
+                <TableCell>{personData.person.name}</TableCell>
+                <TableCell numeric className="single">
+                  {this.formattedPersonalBest(personData, 'single')}
+                </TableCell>
+                <TableCell numeric className="average">
+                  {this.formattedPersonalBest(personData, 'average')}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </Paper>

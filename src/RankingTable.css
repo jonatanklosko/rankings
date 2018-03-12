@@ -1,0 +1,9 @@
+.sort-by-single .single,
+.sort-by-average .average {
+  font-weight: 600;
+}
+
+.ranking-table-head .single,
+.ranking-table-head .average {
+  cursor: pointer;
+}

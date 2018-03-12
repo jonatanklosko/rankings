@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
+import clipboard from 'clipboard-polyfill';
 import _ from 'lodash';
 
 import WcaApi from './WcaApi';
@@ -21,6 +25,7 @@ export default class Ranking extends Component {
     }
 
     this.handleEventChange = this.handleEventChange.bind(this);
+    this.copyUrl = this.copyUrl.bind(this);
   }
 
   componentDidMount() {
@@ -48,11 +53,22 @@ export default class Ranking extends Component {
     this.setState({ event });
   }
 
+  copyUrl() {
+    clipboard.writeText(window.location.href);
+  }
+
   render() {
     return (
       <Grid container justify="center">
         <Grid item xs={12} md={8}>
-          <Typography variant="headline">{this.state.name}</Typography>
+          <Typography variant="headline">
+            {this.state.name}
+            <Tooltip title="Copy URL" placement="right">
+              <IconButton onClick={this.copyUrl}>
+                <Icon>link</Icon>
+              </IconButton>
+            </Tooltip>
+          </Typography>
           <EventSelect value={this.state.event} onChange={this.handleEventChange} />
         </Grid>
         <Grid item xs={12} md={8}>

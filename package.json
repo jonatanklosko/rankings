@@ -2,6 +2,7 @@
   "name": "rankings",
   "version": "0.1.0",
   "dependencies": {
+    "clipboard-polyfill": "^2.4.6",
     "downshift": "^1.30.0",
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.36",

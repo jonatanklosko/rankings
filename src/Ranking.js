@@ -8,6 +8,7 @@ import clipboard from 'clipboard-polyfill';
 import _ from 'lodash';
 
 import WcaApi from './WcaApi';
+import GoogleUrlShortenerApi from './GoogleUrlShortenerApi';
 import EventSelect from './EventSelect';
 import RankingTable from './RankingTable';
 
@@ -21,7 +22,8 @@ export default class Ranking extends Component {
       wcaIds: params.get('wcaids') && params.get('wcaids').split(','),
       name: params.get('name'),
       peopleData: [],
-      event: events[0]
+      event: events[0],
+      shortUrl: window.location.href /* Use the long URL until the short one is fetched. */
     }
 
     this.handleEventChange = this.handleEventChange.bind(this);
@@ -33,6 +35,8 @@ export default class Ranking extends Component {
       .then(peopleData => this.setState({
         peopleData: this.withLocalRanks(peopleData)
       }));
+    GoogleUrlShortenerApi.shorten(window.location.href)
+      .then(shortUrl => this.setState({ shortUrl }));
   }
 
   withLocalRanks(peopleData) {
@@ -54,7 +58,7 @@ export default class Ranking extends Component {
   }
 
   copyUrl() {
-    clipboard.writeText(window.location.href);
+    clipboard.writeText(this.state.shortUrl);
   }
 
   render() {

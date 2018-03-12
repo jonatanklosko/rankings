@@ -11,11 +11,11 @@ import EditablePeopleList from './EditablePeopleList';
 export default class RankingForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = Object.assign({}, {
       name: '',
       people: [],
       redirectPath: null
-    };
+    }, props.location.state.formState);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);

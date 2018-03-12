@@ -5,6 +5,7 @@ import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
 import clipboard from 'clipboard-polyfill';
+import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
 import WcaApi from './WcaApi';
@@ -23,11 +24,13 @@ export default class Ranking extends Component {
       name: params.get('name'),
       peopleData: [],
       event: events[0],
-      shortUrl: window.location.href /* Use the long URL until the short one is fetched. */
+      shortUrl: window.location.href, /* Use the long URL until the short one is fetched. */
+      redirectPath: null
     }
 
     this.handleEventChange = this.handleEventChange.bind(this);
     this.copyUrl = this.copyUrl.bind(this);
+    this.edit = this.edit.bind(this)
   }
 
   componentDidMount() {
@@ -61,8 +64,22 @@ export default class Ranking extends Component {
     clipboard.writeText(this.state.shortUrl);
   }
 
+  edit() {
+    this.setState({
+      redirectPath: {
+        pathname: '/edit',
+        state: {
+          formState: {
+            name: this.state.name,
+            people: _.map(this.state.peopleData, 'person')
+          }
+        }
+      }
+    });
+  }
+
   render() {
-    return (
+    return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
       <Grid container justify="center">
         <Grid item xs={12} md={8}>
           <Typography variant="headline">
@@ -70,6 +87,11 @@ export default class Ranking extends Component {
             <Tooltip title="Copy URL" placement="right">
               <IconButton onClick={this.copyUrl}>
                 <Icon>link</Icon>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit" placement="right">
+              <IconButton onClick={this.edit}>
+                <Icon>edit</Icon>
               </IconButton>
             </Tooltip>
           </Typography>

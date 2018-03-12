@@ -14,7 +14,7 @@ export default class Ranking extends Component {
     super(props);
     const params = new URLSearchParams(this.props.location.search);
     this.state = {
-      wcaIds: params.get('wcaids').split(','),
+      wcaIds: params.get('wcaids') && params.get('wcaids').split(','),
       name: params.get('name'),
       peopleData: [],
       event: events[0]
@@ -33,14 +33,12 @@ export default class Ranking extends Component {
   withLocalRanks(peopleData) {
     _.each(events, event => {
       _.each(['single', 'average'], format => {
-        _(peopleData)
-          .filter(`personalRecords.${event.id}.${format}`)
-          .groupBy(`personalRecords.${event.id}.${format}.worldRank`)
-          .sortBy((peopleData, worldRank) => worldRank)
-          .values()
-          .each((peopleData, index) => {
-            _.each(peopleData, ({ personalRecords }) => personalRecords[event.id][format].localRank = index + 1);
-          });
+        const filteredPeopleData = _.filter(peopleData, `personalRecords.${event.id}.${format}`);
+        const worldRanks = _.sortBy(_.map(filteredPeopleData, `personalRecords.${event.id}.${format}.worldRank`));
+        _.each(filteredPeopleData, ({ personalRecords }) => {
+          const record = personalRecords[event.id][format];
+          record.localRank = _.indexOf(worldRanks, record.worldRank) + 1;
+        })
       });
     });
     return peopleData;

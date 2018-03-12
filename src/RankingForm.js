@@ -3,6 +3,8 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import { Redirect } from 'react-router-dom';
+import _ from 'lodash';
 
 import EditablePeopleList from './EditablePeopleList';
 
@@ -11,7 +13,8 @@ export default class RankingForm extends Component {
     super(props);
     this.state = {
       name: '',
-      people: []
+      people: [],
+      redirectPath: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +24,9 @@ export default class RankingForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      redirectPath: `/show?name=${this.state.name}&wcaids=${_.map(this.state.people, 'wcaId').join(',')}`
+    });
   }
 
   handleNameChange(event) {
@@ -32,7 +38,7 @@ export default class RankingForm extends Component {
   }
 
   render() {
-    return (
+    return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
       <Grid container justify="center">
         <Grid item xs={12} sm={6}>
           <Typography variant="headline">Edit ranking</Typography>

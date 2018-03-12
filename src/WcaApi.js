@@ -26,6 +26,13 @@ export default class WcaApi {
     const promises = _.map(_.chunk(wcaIds, 100), wcaIdsSubset =>
       this.fetch(`/persons?per_page=100&wca_ids=${wcaIdsSubset.join(',')}`)
     );
-    return Promise.all(promises).then(_.flatten);
+    return Promise.all(promises)
+      .then(_.flatten)
+      .then(peopleData =>
+        peopleData.map(({ personalRecords, ...rest }) => (
+          /* Revert camelization of event ids. */
+          { ...rest, personalRecords: _.mapKeys(personalRecords, (value, key) => _.toLower(key)) }
+        ))
+      );
   }
 }

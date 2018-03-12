@@ -4,6 +4,7 @@ import Grid from 'material-ui/Grid';
 
 import WcaApi from './WcaApi';
 import EventSelect from './EventSelect';
+import RankingTable from './RankingTable';
 
 import events from './events';
 
@@ -36,6 +37,9 @@ export default class Ranking extends Component {
         <Grid item xs={12} md={8}>
           <Typography variant="headline">{this.state.name}</Typography>
           <EventSelect value={this.state.event} onChange={this.handleEventChange} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <RankingTable peopleData={this.state.peopleData} event={this.state.event} />
         </Grid>
       </Grid>
     );

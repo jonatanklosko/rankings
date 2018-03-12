@@ -4,7 +4,7 @@ import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Ta
 import _ from 'lodash';
 
 import './RankingTable.css';
-import Helpers from './helpers';
+import Helpers from '../utils/helpers';
 
 export default class RankingTable extends Component {
   constructor(props) {

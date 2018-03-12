@@ -8,7 +8,7 @@ import Downshift from 'downshift';
 import _ from 'lodash';
 
 import './WcaPersonSelect.css';
-import WcaApi from './WcaApi';
+import WcaApi from '../utils/WcaApi';
 
 export default class WcaPersonSelect extends Component {
   constructor(props) {

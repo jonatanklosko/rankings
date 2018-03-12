@@ -3,7 +3,7 @@ import Tooltip from 'material-ui/Tooltip';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 
-import events from './events';
+import events from '../utils/events';
 
 export default class EventSelect extends Component {
   render() {

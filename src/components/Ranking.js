@@ -8,12 +8,12 @@ import clipboard from 'clipboard-polyfill';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
-import WcaApi from './WcaApi';
-import GoogleUrlShortenerApi from './GoogleUrlShortenerApi';
+import WcaApi from '../utils/WcaApi';
+import GoogleUrlShortenerApi from '../utils/GoogleUrlShortenerApi';
 import EventSelect from './EventSelect';
 import RankingTable from './RankingTable';
 
-import events from './events';
+import events from '../utils/events';
 
 export default class Ranking extends Component {
   constructor(props) {

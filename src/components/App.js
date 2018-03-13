@@ -21,7 +21,7 @@ const theme = createMuiTheme({
 export default class App extends Component {
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <MuiThemeProvider theme={theme}>
           <Reboot />
           <Navigation />

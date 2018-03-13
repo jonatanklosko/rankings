@@ -14,6 +14,14 @@
     "type": "git",
     "url": "https://github.com/jonatanklosko/rankings.git"
   },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
   "dependencies": {
     "clipboard-polyfill": "^2.4.6",
     "downshift": "^1.30.0",
@@ -24,10 +32,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
   }
 }

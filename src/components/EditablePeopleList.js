@@ -19,7 +19,7 @@ export default class EditablePeopleList extends Component {
   render() {
     return (
       <div>
-        <List dense>
+        <List dense style={{ maxHeight: 200, overflow: 'auto' }}>
           {this.props.people.map(person => (
             <ListItem key={person.wcaId}>
               <Avatar src={person.avatar.thumbUrl} />

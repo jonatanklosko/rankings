@@ -38,7 +38,7 @@ export default class RankingTable extends Component {
         <Table className={`sort-by-${this.state.format}`}>
           <TableHead className="ranking-table-head">
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell padding="dense"></TableCell>
               <TableCell>Name</TableCell>
               <TableCell numeric className="single" onClick={() => this.setFormat('single')}>
                 Single
@@ -51,7 +51,7 @@ export default class RankingTable extends Component {
           <TableBody>
             {this.peopleData().map(personData => (
               <TableRow key={personData.person.wcaId}>
-                <TableCell>
+                <TableCell padding="dense">
                   {personData.personalRecords[this.props.event.id][this.state.format].localRank}
                 </TableCell>
                 <TableCell>{personData.person.name}</TableCell>

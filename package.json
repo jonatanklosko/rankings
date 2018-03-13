@@ -2,6 +2,7 @@
   "name": "rankings",
   "version": "1.0.0",
   "description": "A simple web app for creating WCA-like rankings for specific group of people.",
+  "homepage": "https://jonatanklosko.github.io/rankings",
   "keywords": [
     "speedcubing",
     "rankings",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Reboot from 'material-ui/Reboot';
 import Grid from 'material-ui/Grid';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
@@ -80,10 +79,10 @@ export default class Ranking extends Component {
 
   render() {
     return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
-      <Grid container justify="center">
-        <Grid item xs={12} md={8}>
-          <Typography variant="headline">
-            {this.state.name}
+      <div style={{ textAlign: 'center' }}>
+        <Typography variant="headline">
+          {this.state.name}
+          <div style={{ display: 'inline-block' }}>
             <Tooltip title="Copy URL" placement="right">
               <IconButton onClick={this.copyUrl}>
                 <Icon>link</Icon>
@@ -94,13 +93,11 @@ export default class Ranking extends Component {
                 <Icon>edit</Icon>
               </IconButton>
             </Tooltip>
-          </Typography>
-          <EventSelect value={this.state.event} onChange={this.handleEventChange} />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <RankingTable peopleData={this.state.peopleData} event={this.state.event} />
-        </Grid>
-      </Grid>
+          </div>
+        </Typography>
+        <EventSelect value={this.state.event} onChange={this.handleEventChange} />
+        <RankingTable peopleData={this.state.peopleData} event={this.state.event} />
+      </div>
     );
   }
 }

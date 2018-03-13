@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Reboot from 'material-ui/Reboot';
+import Grid from 'material-ui/Grid';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import blue from 'material-ui/colors/blue';
 import blueGrey from 'material-ui/colors/blueGrey';
@@ -24,10 +25,13 @@ export default class App extends Component {
         <MuiThemeProvider theme={theme}>
           <Reboot />
           <Navigation />
-
-          <Route exact path="/" component={Home}/>
-          <Route path="/edit" component={RankingForm}/>
-          <Route path="/show" component={Ranking}/>
+          <Grid container justify="center">
+            <Grid item xs={12} md={8} style={{ padding: 16 }}>
+              <Route exact path="/" component={Home}/>
+              <Route path="/edit" component={RankingForm}/>
+              <Route path="/show" component={Ranking}/>
+            </Grid>
+          </Grid>
         </MuiThemeProvider>
       </Router>
     );

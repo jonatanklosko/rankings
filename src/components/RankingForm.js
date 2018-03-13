@@ -39,25 +39,23 @@ export default class RankingForm extends Component {
 
   render() {
     return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
-      <Grid container justify="center">
-        <Grid item xs={12} sm={6}>
-          <Typography variant="headline">Edit ranking</Typography>
-          <form onSubmit={this.handleSubmit}>
-            <Grid container direction="column">
-              <Grid item>
-                <TextField fullWidth label="Ranking name" value={this.state.name} onChange={this.handleNameChange} />
-              </Grid>
-              <Grid item>
-                <Typography variant="subheading">People</Typography>
-                <EditablePeopleList people={this.state.people} onChange={this.handlePeopleChange} />
-              </Grid>
-              <Grid item>
-                <Button type="submit" variant="raised" color="secondary">Done</Button>
-              </Grid>
+      <div>
+        <Typography variant="headline">Edit ranking</Typography>
+        <form onSubmit={this.handleSubmit}>
+          <Grid container direction="column">
+            <Grid item>
+              <TextField fullWidth label="Ranking name" value={this.state.name} onChange={this.handleNameChange} />
             </Grid>
-          </form>
-        </Grid>
-      </Grid>
+            <Grid item>
+              <Typography variant="subheading">People</Typography>
+              <EditablePeopleList people={this.state.people} onChange={this.handlePeopleChange} />
+            </Grid>
+            <Grid item>
+              <Button type="submit" variant="raised" color="secondary">Done</Button>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
     );
   }
 }

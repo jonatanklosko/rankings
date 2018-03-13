@@ -2,3 +2,8 @@ body {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden; /* A workaround, see: https://material-ui-next.com/layout/grid/#negative-margin */
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

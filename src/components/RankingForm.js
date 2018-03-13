@@ -26,7 +26,7 @@ export default class RankingForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
-      redirectPath: `/show?name=${this.state.name}&wcaids=${_.map(this.state.people, 'wcaId').join(',')}`
+      redirectPath: `/show?name=${encodeURIComponent(this.state.name)}&wcaids=${_.map(this.state.people, 'wcaId').join(',')}`
     });
   }
 

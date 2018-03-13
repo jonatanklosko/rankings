@@ -1,3 +1,7 @@
+.ranking-table-container {
+  overflow-x: auto;
+}
+
 .sort-by-single .single,
 .sort-by-average .average {
   font-weight: 600;

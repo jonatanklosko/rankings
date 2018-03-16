@@ -24,7 +24,7 @@ export default class WcaPersonSelect extends Component {
   findPeople(query) {
     if (query) {
       WcaApi.searchPeople(query)
-        .then(people => this.setState({ peopleFound: _.take(people, 5) }));
+        .then(people => this.setState({ peopleFound: people }));
     } else {
       this.setState({ peopleFound: [] });
     }

@@ -4,6 +4,8 @@
 }
 
 .wca-person-select .options-list {
+  max-height: 192px;
+  overflow-x: auto;
   display: block;
   position: absolute;
   z-index: 1;

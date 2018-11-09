@@ -5,9 +5,12 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
 export default class Navigation extends Component {
+  importPeople = () => {
+  };
+
   render() {
     return (
-      <Grid container spacing={24}>
+      <Grid container spacing={24} justify="center">
         <Grid item>
           <Typography variant="h4">What is it?</Typography>
         </Grid>
@@ -18,9 +21,18 @@ export default class Navigation extends Component {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="outlined" component={Link} to="/edit">
-            Go ahead and create one!
-          </Button>
+          <Grid container spacing={8}>
+            <Grid item>
+              <Button variant="outlined" component={Link} to="/edit">
+                Go ahead and create one!
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="outlined" onClick={this.importPeople}>
+                Import people from file
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );

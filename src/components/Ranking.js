@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Typography from 'material-ui/Typography';
-import Icon from 'material-ui/Icon';
-import IconButton from 'material-ui/IconButton';
-import Tooltip from 'material-ui/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import clipboard from 'clipboard-polyfill';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
@@ -80,7 +80,7 @@ export default class Ranking extends Component {
   render() {
     return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
       <div style={{ textAlign: 'center' }}>
-        <Typography variant="headline">
+        <Typography variant="h5">
           {this.state.name}
           <div style={{ display: 'inline-block' }}>
             <Tooltip title="Copy URL" placement="right">

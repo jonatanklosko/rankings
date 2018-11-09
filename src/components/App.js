@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import Reboot from 'material-ui/Reboot';
-import Grid from 'material-ui/Grid';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import blue from 'material-ui/colors/blue';
-import blueGrey from 'material-ui/colors/blueGrey';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import Navigation from './Navigation';
 import Home from './Home';
@@ -23,7 +23,7 @@ export default class App extends Component {
     return (
       <Router basename={process.env.PUBLIC_URL}>
         <MuiThemeProvider theme={theme}>
-          <Reboot />
+          <CssBaseline />
           <Navigation />
           <Grid container justify="center">
             <Grid item xs={12} md={8} style={{ padding: 16 }}>

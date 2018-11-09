@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
@@ -41,18 +41,18 @@ export default class RankingForm extends Component {
   render() {
     return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
       <div>
-        <Typography variant="headline">Edit ranking</Typography>
+        <Typography variant="h5">Edit ranking</Typography>
         <form onSubmit={this.handleSubmit}>
-          <Grid container direction="column">
+          <Grid container direction="column" spacing={8}>
             <Grid item>
               <TextField fullWidth label="Ranking name" value={this.state.name} onChange={this.handleNameChange} />
             </Grid>
             <Grid item>
-              <Typography variant="subheading">People</Typography>
+              <Typography variant="subtitle1">People</Typography>
               <EditablePeopleList people={this.state.people} onChange={this.handlePeopleChange} />
             </Grid>
             <Grid item>
-              <Button type="submit" variant="raised" color="secondary">Done</Button>
+              <Button type="submit" variant="contained" color="secondary">Done</Button>
             </Grid>
           </Grid>
         </form>

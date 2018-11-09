@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
-import { ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 import Downshift from 'downshift';
 import _ from 'lodash';
 

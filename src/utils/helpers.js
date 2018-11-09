@@ -26,4 +26,16 @@ export default class Helpers {
     date.setMilliseconds(centiseconds * 10);
     return date.toISOString().substr(11, 11).replace(/^[0:]*(?!\.)/g, '');
   }
+
+  static readWcaIdsFromFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = event => {
+        const text = event.target.result;
+        resolve(text.match(/\d{4}[A-Za-z]{4}\d{2}/g) || []);
+      };
+      reader.onerror = reject;
+      reader.readAsText(file);
+    });
+  }
 }

@@ -3,13 +3,41 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import _ from 'lodash'
+
+import Helpers from '../utils/helpers';
+import WcaApi from '../utils/WcaApi';
 
 export default class Navigation extends Component {
+  state = {
+    redirectPath: null
+  };
+
   importPeople = () => {
+    this.fileInput.click();
+  };
+
+  handleFileChange = event => {
+    if (event.target.files.length > 0) {
+      Helpers.readWcaIdsFromFile(event.target.files[0])
+        .then(wcaIds => WcaApi.getPeopleByWcaIds(wcaIds))
+        .then(peopleData => this.setState({
+          redirectPath: {
+            pathname: '/edit',
+            state: {
+              formState: {
+                // name: this.state.name,
+                people: _.map(peopleData, 'person')
+              }
+            }
+          }
+        }));
+    }
   };
 
   render() {
-    return (
+    return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
       <Grid container spacing={24} justify="center">
         <Grid item>
           <Typography variant="h4">What is it?</Typography>
@@ -27,6 +55,7 @@ export default class Navigation extends Component {
                 Go ahead and create one!
               </Button>
             </Grid>
+            <input type="file" style={{ display: 'none' }} ref={input => this.fileInput = input} onChange={this.handleFileChange} />
             <Grid item>
               <Button variant="outlined" onClick={this.importPeople}>
                 Import people from file

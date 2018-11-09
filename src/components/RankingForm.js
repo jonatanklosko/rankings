@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
@@ -43,12 +44,14 @@ export default class RankingForm extends Component {
       <div>
         <Typography variant="h5">Edit ranking</Typography>
         <form onSubmit={this.handleSubmit}>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={16}>
             <Grid item>
               <TextField fullWidth label="Ranking name" value={this.state.name} onChange={this.handleNameChange} />
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">People</Typography>
+              <Typography variant="subtitle2" style={{ marginBottom: 8 }}>
+                People
+              </Typography>
               <EditablePeopleList people={this.state.people} onChange={this.handlePeopleChange} />
             </Grid>
             <Grid item>

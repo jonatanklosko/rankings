@@ -4,10 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom';
-import _ from 'lodash'
 
 import Helpers from '../utils/helpers';
-import WcaApi from '../utils/WcaApi';
 
 export default class Navigation extends Component {
   state = {
@@ -21,18 +19,11 @@ export default class Navigation extends Component {
   handleFileChange = event => {
     if (event.target.files.length > 0) {
       Helpers.readWcaIdsFromFile(event.target.files[0])
-        .then(wcaIds => WcaApi.getPeopleByWcaIds(wcaIds))
-        .then(peopleData => this.setState({
-          redirectPath: {
-            pathname: '/edit',
-            state: {
-              formState: {
-                // name: this.state.name,
-                people: _.map(peopleData, 'person')
-              }
-            }
-          }
-        }));
+        .then(wcaIds =>
+          this.setState({
+            redirectPath: `/edit?wcaids=${wcaIds.join(',')}`
+          })
+        );
     }
   };
 

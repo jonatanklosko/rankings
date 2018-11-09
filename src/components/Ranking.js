@@ -65,15 +65,7 @@ export default class Ranking extends Component {
 
   edit() {
     this.setState({
-      redirectPath: {
-        pathname: '/edit',
-        state: {
-          formState: {
-            name: this.state.name,
-            people: _.map(this.state.peopleData, 'person')
-          }
-        }
-      }
+      redirectPath: `/edit?name=${encodeURIComponent(this.state.name)}&wcaids=${_.map(this.state.peopleData, 'person.wcaId').join(',')}`
     });
   }
 

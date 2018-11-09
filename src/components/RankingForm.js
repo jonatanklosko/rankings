@@ -6,21 +6,30 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
+import WcaApi from '../utils/WcaApi';
+
 import EditablePeopleList from './EditablePeopleList';
 
 export default class RankingForm extends Component {
   constructor(props) {
     super(props);
     /* If there is a state passed from another component, read it. */
-    this.state = Object.assign({}, {
-      name: '',
+    const params = new URLSearchParams(this.props.location.search);
+    this.state = {
+      wcaIds: params.get('wcaids') ? params.get('wcaids').split(',') : [],
+      name: params.get('name') || '',
       people: [],
       redirectPath: null
-    }, _.get(props, 'location.state.formState'));
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePeopleChange = this.handlePeopleChange.bind(this);
+  }
+
+  componentDidMount() {
+    WcaApi.getPeopleByWcaIds(this.state.wcaIds)
+      .then(peopleData => this.setState({ people: _.map(peopleData, 'person') }));
   }
 
   handleSubmit(event) {

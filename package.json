@@ -20,7 +20,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "gh-pages": "gh-pages -d build",
+    "deploy": "NODE_ENV=production npm run build && npm run gh-pages"
   },
   "dependencies": {
     "clipboard-polyfill": "^2.4.6",

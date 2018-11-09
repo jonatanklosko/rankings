@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import clipboard from 'clipboard-polyfill';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
+import html2canvas from 'html2canvas';
 
 import WcaApi from '../utils/WcaApi';
 import Helpers from '../utils/helpers';
@@ -31,7 +32,8 @@ export default class Ranking extends Component {
 
     this.handleEventChange = this.handleEventChange.bind(this);
     this.copyUrl = this.copyUrl.bind(this);
-    this.edit = this.edit.bind(this)
+    this.edit = this.edit.bind(this);
+    this.downloadImage = this.downloadImage.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +74,18 @@ export default class Ranking extends Component {
     });
   }
 
+  downloadImage() {
+    const { event, ranking } = this.state;
+    const rankingName = ranking.name.toLowerCase().replace(/\s+/, '-');
+    const filename = `rankings-${rankingName}-${event.id}.png`;
+    html2canvas(this.imageArea).then(canvas => {
+      const a = document.createElement('a');
+      a.download = filename;
+      a.href = canvas.toDataURL();
+      a.click();
+    });
+  }
+
   render() {
     const { redirectPath, ranking, peopleData, event, loading } = this.state;
 
@@ -90,13 +104,20 @@ export default class Ranking extends Component {
                 <Icon>edit</Icon>
               </IconButton>
             </Tooltip>
+            <Tooltip title="Download image" placement="right">
+              <IconButton onClick={this.downloadImage}>
+                <Icon>photo</Icon>
+              </IconButton>
+            </Tooltip>
           </div>
         </Typography>
         <EventSelect value={event} onChange={this.handleEventChange} />
-        <Paper>
-          <RankingTable peopleData={peopleData} event={event} />
-          {loading && <LinearProgress />}
-        </Paper>
+        <div ref={element => this.imageArea = element}>
+          <Paper>
+            <RankingTable peopleData={peopleData} event={event} />
+            {loading && <LinearProgress />}
+          </Paper>
+        </div>
       </div>
     );
   }

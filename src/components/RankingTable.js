@@ -38,7 +38,7 @@ export default class RankingTable extends Component {
 
   render() {
     return (
-      <Paper className="ranking-table-container">
+      <div className="ranking-table-container">
         <Table className={`sort-by-${this.state.format}`}>
           <TableHead className="ranking-table-head">
             <TableRow>
@@ -71,7 +71,7 @@ export default class RankingTable extends Component {
             ))}
           </TableBody>
         </Table>
-      </Paper>
+      </div>
     );
   }
 }

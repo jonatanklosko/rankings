@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import clipboard from 'clipboard-polyfill';
 import { Redirect } from 'react-router-dom';
@@ -23,7 +25,8 @@ export default class Ranking extends Component {
       peopleData: [],
       event: events[0],
       shortUrl: window.location.href, /* Use the long URL until the short one is fetched. */
-      redirectPath: null
+      redirectPath: null,
+      loading: true
     }
 
     this.handleEventChange = this.handleEventChange.bind(this);
@@ -34,6 +37,7 @@ export default class Ranking extends Component {
   componentDidMount() {
     WcaApi.getPeopleByWcaIds(this.state.ranking.wcaIds)
       .then(peopleData => this.setState({
+        loading: false,
         peopleData: this.withLocalRanks(peopleData)
       }));
     GoogleUrlShortenerApi.shorten(window.location.href)
@@ -69,7 +73,7 @@ export default class Ranking extends Component {
   }
 
   render() {
-    const { redirectPath, ranking, peopleData, event } = this.state;
+    const { redirectPath, ranking, peopleData, event, loading } = this.state;
 
     return redirectPath ? <Redirect to={redirectPath} /> : (
       <div style={{ textAlign: 'center' }}>
@@ -89,7 +93,10 @@ export default class Ranking extends Component {
           </div>
         </Typography>
         <EventSelect value={event} onChange={this.handleEventChange} />
-        <RankingTable peopleData={peopleData} event={event} />
+        <Paper>
+          <RankingTable peopleData={peopleData} event={event} />
+          {loading && <LinearProgress />}
+        </Paper>
       </div>
     );
   }

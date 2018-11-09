@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
@@ -17,7 +18,8 @@ export default class RankingForm extends Component {
     this.state = {
       ranking: Helpers.rankingFromSearchParams(this.props.location.search),
       people: [],
-      redirectPath: null
+      redirectPath: null,
+      loading: true
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +29,10 @@ export default class RankingForm extends Component {
 
   componentDidMount() {
     WcaApi.getPeopleByWcaIds(this.state.ranking.wcaIds)
-      .then(peopleData => this.setState({ people: _.map(peopleData, 'person') }));
+      .then(peopleData => this.setState({
+        loading: false,
+        people: _.map(peopleData, 'person')
+      }));
   }
 
   handleSubmit(event) {
@@ -49,7 +54,7 @@ export default class RankingForm extends Component {
   }
 
   render() {
-    const { redirectPath, ranking, people } = this.state;
+    const { redirectPath, ranking, people, loading } = this.state;
 
     return redirectPath ? <Redirect to={redirectPath} /> : (
       <div>
@@ -63,7 +68,9 @@ export default class RankingForm extends Component {
               <Typography variant="subtitle2" style={{ marginBottom: 8 }}>
                 People
               </Typography>
-              <EditablePeopleList people={people} onChange={this.handlePeopleChange} />
+              {loading ? <LinearProgress /> : (
+                <EditablePeopleList people={people} onChange={this.handlePeopleChange} />
+              )}
             </Grid>
             <Grid item>
               <Button type="submit" variant="outlined">Done</Button>

@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
 import WcaApi from '../utils/WcaApi';
+import Helpers from '../utils/helpers';
 import GoogleUrlShortenerApi from '../utils/GoogleUrlShortenerApi';
 import EventSelect from './EventSelect';
 import RankingTable from './RankingTable';
@@ -17,10 +18,8 @@ import events from '../utils/events';
 export default class Ranking extends Component {
   constructor(props) {
     super(props);
-    const params = new URLSearchParams(this.props.location.search);
     this.state = {
-      wcaIds: params.get('wcaids') && params.get('wcaids').split(','),
-      name: params.get('name'),
+      ranking: Helpers.rankingFromSearchParams(this.props.location.search),
       peopleData: [],
       event: events[0],
       shortUrl: window.location.href, /* Use the long URL until the short one is fetched. */
@@ -33,7 +32,7 @@ export default class Ranking extends Component {
   }
 
   componentDidMount() {
-    WcaApi.getPeopleByWcaIds(this.state.wcaIds)
+    WcaApi.getPeopleByWcaIds(this.state.ranking.wcaIds)
       .then(peopleData => this.setState({
         peopleData: this.withLocalRanks(peopleData)
       }));
@@ -65,15 +64,17 @@ export default class Ranking extends Component {
 
   edit() {
     this.setState({
-      redirectPath: `/edit?name=${encodeURIComponent(this.state.name)}&wcaids=${_.map(this.state.peopleData, 'person.wcaId').join(',')}`
+      redirectPath: `/edit?name=${encodeURIComponent(this.state.ranking.name)}&wcaids=${_.map(this.state.peopleData, 'person.wcaId').join(',')}`
     });
   }
 
   render() {
-    return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
+    const { redirectPath, ranking, peopleData, event } = this.state;
+
+    return redirectPath ? <Redirect to={redirectPath} /> : (
       <div style={{ textAlign: 'center' }}>
         <Typography variant="h5">
-          {this.state.name}
+          {ranking.name}
           <div style={{ display: 'inline-block' }}>
             <Tooltip title="Copy URL" placement="right">
               <IconButton onClick={this.copyUrl}>
@@ -87,8 +88,8 @@ export default class Ranking extends Component {
             </Tooltip>
           </div>
         </Typography>
-        <EventSelect value={this.state.event} onChange={this.handleEventChange} />
-        <RankingTable peopleData={this.state.peopleData} event={this.state.event} />
+        <EventSelect value={event} onChange={this.handleEventChange} />
+        <RankingTable peopleData={peopleData} event={event} />
       </div>
     );
   }

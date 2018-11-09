@@ -38,4 +38,12 @@ export default class Helpers {
       reader.readAsText(file);
     });
   }
+
+  static rankingFromSearchParams(search) {
+    const params = new URLSearchParams(search);
+    return {
+      wcaIds: params.get('wcaids') ? params.get('wcaids').split(',') : [],
+      name: params.get('name') || ''
+    };
+  }
 }

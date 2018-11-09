@@ -59,7 +59,7 @@ export default class RankingTable extends Component {
                   {personData.personalRecords[this.props.event.id][this.state.format].localRank}
                 </TableCell>
                 <TableCell>
-                  <a href={personData.person.url} target="_blank">{personData.person.name}</a>
+                  <a href={personData.person.url} target="_blank" rel="noopener noreferrer">{personData.person.name}</a>
                 </TableCell>
                 <TableCell numeric className="single">
                   {this.formattedPersonalBest(personData, 'single')}

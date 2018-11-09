@@ -13,7 +13,7 @@ export default class Navigation extends Component {
           <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
             <Link to="/">Rankings</Link>
           </Typography>
-          <IconButton component="a" href="https://github.com/jonatanklosko/rankings" target="_blank">
+          <IconButton component="a" href="https://github.com/jonatanklosko/rankings" target="_blank" rel="noopener">
             <img src="https://png.icons8.com/ios-glyphs/32/ffffff/github.png" alt="GitHub" />
           </IconButton>
         </Toolbar>

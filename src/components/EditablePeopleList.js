@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,7 +12,7 @@ import _ from 'lodash';
 
 import WcaPersonSelect from './WcaPersonSelect';
 
-export default class EditablePeopleList extends Component {
+export default class EditablePeopleList extends PureComponent {
   onPersonAdded(person) {
     this.props.onChange(_.uniqBy([...this.props.people, person], 'wcaId'));
   }

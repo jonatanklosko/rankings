@@ -18,7 +18,7 @@ export default class Navigation extends Component {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" component={Link} to="/edit">
+          <Button variant="outlined" component={Link} to="/edit">
             Go ahead and create one!
           </Button>
         </Grid>

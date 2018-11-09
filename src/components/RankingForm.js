@@ -52,7 +52,7 @@ export default class RankingForm extends Component {
               <EditablePeopleList people={this.state.people} onChange={this.handlePeopleChange} />
             </Grid>
             <Grid item>
-              <Button type="submit" variant="contained" color="secondary">Done</Button>
+              <Button type="submit" variant="outlined">Done</Button>
             </Grid>
           </Grid>
         </form>

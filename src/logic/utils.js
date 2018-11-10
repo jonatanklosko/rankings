@@ -37,14 +37,3 @@ export const readWcaIdsFromFile = file => {
     reader.readAsText(file);
   });
 };
-
-export const rankingFromSearchParams = search => {
-  const params = new URLSearchParams(search);
-  return {
-    wcaIds: params.get('wcaids') ? params.get('wcaids').split(',') : [],
-    name: params.get('name') || ''
-  };
-};
-
-export const rankingToSearchParams = ({ name, wcaIds }) =>
-  new URLSearchParams({ name, wcaids: wcaIds.join(',') }).toString();

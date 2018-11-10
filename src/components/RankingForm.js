@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
 import { getPeopleByWcaIds } from '../logic/wca-api';
-import { rankingFromSearchParams, rankingToSearchParams } from '../logic/utils';
+import { rankingFromSearchParams, rankingToSearchParams } from '../logic/url-utils';
 
 import EditablePeopleList from './EditablePeopleList';
 

@@ -11,8 +11,7 @@ import _ from 'lodash';
 import html2canvas from 'html2canvas';
 
 import { getPeopleByWcaIds } from '../logic/wca-api';
-import { rankingFromSearchParams, rankingToSearchParams } from '../logic/utils';
-import { shortenUrl } from '../logic/url-utils';
+import { shortenUrl, rankingFromSearchParams, rankingToSearchParams } from '../logic/url-utils';
 import EventSelect from './EventSelect';
 import RankingTable from './RankingTable';
 

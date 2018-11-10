@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom';
 
-import { readWcaIdsFromFile, rankingToSearchParams } from '../logic/utils';
+import { readWcaIdsFromFile } from '../logic/utils';
+import { rankingToSearchParams } from '../logic/url-utils';
 
 export default class Navigation extends Component {
   state = {

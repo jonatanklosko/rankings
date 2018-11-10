@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,16 +19,15 @@ export default class RankingTable extends Component {
   }
 
   formattedPersonalBest(personData, format) {
-    const eventId = this.props.event.id;
-    const result = _.get(personData, `personalRecords.${eventId}.${format}.best`);
-    return result ? resultToString(result, eventId, format) : '';
+    const { event } = this.props;
+    const result = _.get(personData, `personalRecords.${event.id}.${format}.best`);
+    return result ? resultToString(result, event.id, format) : '';
   }
 
   peopleDataForEvent() {
-    const eventId = this.props.event.id;
     const { event, peopleData } = this.props;
     const { format } = this.state;
-    return _(this.props.peopleData)
+    return _(peopleData)
       .filter(`personalRecords.${event.id}.${format}`)
       .orderBy([`personalRecords.${event.id}.${format}.localRank`])
       .value();

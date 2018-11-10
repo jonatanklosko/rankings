@@ -21,7 +21,7 @@ export default class Navigation extends Component {
       readWcaIdsFromFile(event.target.files[0])
         .then(wcaIds =>
           this.setState({
-            redirectPath: '/edit?' + rankingToSearchParams({ wcaIds })
+            redirectPath: '/edit?' + rankingToSearchParams({ name: '', wcaIds })
           })
         );
     }

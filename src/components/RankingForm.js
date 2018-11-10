@@ -7,8 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
-import WcaApi from '../utils/WcaApi';
-import Helpers from '../utils/helpers';
+import { getPeopleByWcaIds } from '../logic/wca-api';
+import { rankingFromSearchParams } from '../logic/utils';
 
 import EditablePeopleList from './EditablePeopleList';
 
@@ -16,7 +16,7 @@ export default class RankingForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ranking: Helpers.rankingFromSearchParams(this.props.location.search),
+      ranking: rankingFromSearchParams(this.props.location.search),
       people: [],
       redirectPath: null,
       loading: true
@@ -28,7 +28,7 @@ export default class RankingForm extends Component {
   }
 
   componentDidMount() {
-    WcaApi.getPeopleByWcaIds(this.state.ranking.wcaIds)
+    getPeopleByWcaIds(this.state.ranking.wcaIds)
       .then(peopleData => this.setState({
         loading: false,
         people: _.map(peopleData, 'person')

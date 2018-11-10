@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom';
 
-import Helpers from '../utils/helpers';
+import { readWcaIdsFromFile } from '../logic/utils';
 
 export default class Navigation extends Component {
   state = {
@@ -18,7 +18,7 @@ export default class Navigation extends Component {
 
   handleFileChange = event => {
     if (event.target.files.length > 0) {
-      Helpers.readWcaIdsFromFile(event.target.files[0])
+      readWcaIdsFromFile(event.target.files[0])
         .then(wcaIds =>
           this.setState({
             redirectPath: `/edit?wcaids=${wcaIds.join(',')}`

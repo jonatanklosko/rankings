@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import _ from 'lodash';
 
 import './RankingTable.css';
-import Helpers from '../utils/helpers';
+import { resultToString } from '../logic/utils';
 
 export default class RankingTable extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class RankingTable extends Component {
   formattedPersonalBest(personData, format) {
     const eventId = this.props.event.id;
     const result = _.get(personData, `personalRecords.${eventId}.${format}.best`);
-    return result ? Helpers.resultToString(result, eventId, format) : '';
+    return result ? resultToString(result, eventId, format) : '';
   }
 
   peopleData() {

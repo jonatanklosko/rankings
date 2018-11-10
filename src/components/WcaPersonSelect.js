@@ -8,7 +8,7 @@ import Downshift from 'downshift';
 import _ from 'lodash';
 
 import './WcaPersonSelect.css';
-import WcaApi from '../utils/WcaApi';
+import { searchPeople } from '../logic/wca-api';
 
 export default class WcaPersonSelect extends Component {
   constructor(props) {
@@ -23,8 +23,7 @@ export default class WcaPersonSelect extends Component {
 
   findPeople(query) {
     if (query) {
-      WcaApi.searchPeople(query)
-        .then(people => this.setState({ peopleFound: people }));
+      searchPeople(query).then(people => this.setState({ peopleFound: people }));
     } else {
       this.setState({ peopleFound: [] });
     }

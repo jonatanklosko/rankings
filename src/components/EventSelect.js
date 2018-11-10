@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 
-import events from '../utils/events';
+import events from '../logic/events';
 
 export default class EventSelect extends Component {
   render() {

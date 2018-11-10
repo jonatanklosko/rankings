@@ -10,19 +10,19 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import html2canvas from 'html2canvas';
 
-import WcaApi from '../utils/WcaApi';
-import Helpers from '../utils/helpers';
-import GoogleUrlShortenerApi from '../utils/GoogleUrlShortenerApi';
+import { getPeopleByWcaIds } from '../logic/wca-api';
+import { rankingFromSearchParams } from '../logic/utils';
+import { shortenUrl } from '../logic/url-utils';
 import EventSelect from './EventSelect';
 import RankingTable from './RankingTable';
 
-import events from '../utils/events';
+import events from '../logic/events';
 
 export default class Ranking extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ranking: Helpers.rankingFromSearchParams(this.props.location.search),
+      ranking: rankingFromSearchParams(this.props.location.search),
       peopleData: [],
       event: events[0],
       shortUrl: window.location.href, /* Use the long URL until the short one is fetched. */
@@ -37,12 +37,12 @@ export default class Ranking extends Component {
   }
 
   componentDidMount() {
-    WcaApi.getPeopleByWcaIds(this.state.ranking.wcaIds)
+    getPeopleByWcaIds(this.state.ranking.wcaIds)
       .then(peopleData => this.setState({
         loading: false,
         peopleData: this.withLocalRanks(peopleData)
       }));
-    GoogleUrlShortenerApi.shorten(window.location.href)
+    shortenUrl(window.location.href)
       .then(shortUrl => this.setState({ shortUrl }));
   }
 

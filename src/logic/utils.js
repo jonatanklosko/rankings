@@ -45,3 +45,6 @@ export const rankingFromSearchParams = search => {
     name: params.get('name') || ''
   };
 };
+
+export const rankingToSearchParams = ({ name, wcaIds }) =>
+  new URLSearchParams({ name, wcaids: wcaIds.join(',') }).toString();

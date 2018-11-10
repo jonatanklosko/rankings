@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom';
 
-import { readWcaIdsFromFile } from '../logic/utils';
+import { readWcaIdsFromFile, rankingToSearchParams } from '../logic/utils';
 
 export default class Navigation extends Component {
   state = {
@@ -21,7 +21,7 @@ export default class Navigation extends Component {
       readWcaIdsFromFile(event.target.files[0])
         .then(wcaIds =>
           this.setState({
-            redirectPath: `/edit?wcaids=${wcaIds.join(',')}`
+            redirectPath: '/edit?' + rankingToSearchParams({ wcaIds })
           })
         );
     }

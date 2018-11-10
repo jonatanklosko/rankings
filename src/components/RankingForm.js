@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
 import { getPeopleByWcaIds } from '../logic/wca-api';
-import { rankingFromSearchParams } from '../logic/utils';
+import { rankingFromSearchParams, rankingToSearchParams } from '../logic/utils';
 
 import EditablePeopleList from './EditablePeopleList';
 
@@ -35,7 +35,7 @@ export default class RankingForm extends Component {
     event.preventDefault();
     const { ranking, people } = this.state;
     this.setState({
-      redirectPath: `/show?name=${encodeURIComponent(ranking.name)}&wcaids=${_.map(people, 'wcaId').join(',')}`
+      redirectPath: '/show?' + rankingToSearchParams({ name: ranking.name, wcaIds: _.map(people, 'wcaId') })
     });
   };
 

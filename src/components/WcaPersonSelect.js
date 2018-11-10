@@ -7,34 +7,36 @@ import Avatar from '@material-ui/core/Avatar';
 import Downshift from 'downshift';
 import _ from 'lodash';
 
-import './WcaPersonSelect.css';
 import { searchPeople } from '../logic/wca-api';
+import './WcaPersonSelect.css';
 
 export default class WcaPersonSelect extends Component {
+  state = {
+    peopleFound: []
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      peopleFound: []
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.findPeopleDebounced = _.debounce(this.findPeople.bind(this), 300);
+    this.findPeopleDebounced = _.debounce(this.findPeople, 300);
   }
 
-  findPeople(query) {
+  findPeople = query => {
     if (query) {
       searchPeople(query).then(people => this.setState({ peopleFound: people }));
     } else {
       this.setState({ peopleFound: [] });
     }
-  }
+  };
 
-  handleChange(person, { clearSelection }) {
-    person && this.props.onChange(person);
-    this.props.clearOnChange && clearSelection();
-  }
+  handleChange = (person, { clearSelection }) => {
+    const { onChange, clearOnChange } = this.props;
+    person && onChange(person);
+    clearOnChange && clearSelection();
+  };
 
   render() {
+    const { fullWidth, label } = this.props;
+
     return (
       <Downshift
         onChange={this.handleChange}
@@ -43,7 +45,7 @@ export default class WcaPersonSelect extends Component {
       >
         {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
           <div className="wca-person-select">
-            <TextField {...getInputProps({ fullWidth: this.props.fullWidth, label: this.props.label })} />
+            <TextField {...getInputProps({ fullWidth, label })} />
             {isOpen && (
               <Paper square className="options-list">
                 {this.state.peopleFound.map((person, index) => (

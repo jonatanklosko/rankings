@@ -11,12 +11,9 @@ import './RankingTable.css';
 import { resultToString } from '../logic/utils';
 
 export default class RankingTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      format: 'single'
-    };
-  }
+  state = {
+    format: 'single'
+  };
 
   setFormat(format) {
     this.setState({ format });
@@ -28,18 +25,22 @@ export default class RankingTable extends Component {
     return result ? resultToString(result, eventId, format) : '';
   }
 
-  peopleData() {
+  peopleDataForEvent() {
     const eventId = this.props.event.id;
+    const { event, peopleData } = this.props;
+    const { format } = this.state;
     return _(this.props.peopleData)
-      .filter(`personalRecords.${eventId}.${this.state.format}`)
-      .orderBy([`personalRecords.${eventId}.${this.state.format}.localRank`])
+      .filter(`personalRecords.${event.id}.${format}`)
+      .orderBy([`personalRecords.${event.id}.${format}.localRank`])
       .value();
   }
 
   render() {
+    const { format } = this.state;
+
     return (
       <div className="ranking-table-container">
-        <Table className={`sort-by-${this.state.format}`}>
+        <Table className={`sort-by-${format}`}>
           <TableHead className="ranking-table-head">
             <TableRow>
               <TableCell padding="dense"></TableCell>
@@ -53,10 +54,10 @@ export default class RankingTable extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.peopleData().map(personData => (
+            {this.peopleDataForEvent().map(personData => (
               <TableRow key={personData.person.wcaId}>
                 <TableCell padding="dense">
-                  {personData.personalRecords[this.props.event.id][this.state.format].localRank}
+                  {personData.personalRecords[this.props.event.id][format].localRank}
                 </TableCell>
                 <TableCell>
                   <a href={personData.person.url} target="_blank" rel="noopener noreferrer">{personData.person.name}</a>

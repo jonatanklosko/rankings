@@ -28,7 +28,9 @@ export default class Navigation extends Component {
   };
 
   render() {
-    return this.state.redirectPath ? <Redirect to={this.state.redirectPath} /> : (
+    const { redirectPath } = this.state
+
+    return redirectPath ? <Redirect to={redirectPath} /> : (
       <Grid container spacing={24} justify="center">
         <Grid item>
           <Typography variant="h4">What is it?</Typography>

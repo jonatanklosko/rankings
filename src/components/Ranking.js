@@ -22,18 +22,13 @@ export default class Ranking extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ranking: rankingFromSearchParams(this.props.location.search),
+      ranking: rankingFromSearchParams(props.location.search),
       peopleData: [],
       event: events[0],
       shortUrl: window.location.href, /* Use the long URL until the short one is fetched. */
       redirectPath: null,
       loading: true
     }
-
-    this.handleEventChange = this.handleEventChange.bind(this);
-    this.copyUrl = this.copyUrl.bind(this);
-    this.edit = this.edit.bind(this);
-    this.downloadImage = this.downloadImage.bind(this);
   }
 
   componentDidMount() {
@@ -60,21 +55,22 @@ export default class Ranking extends Component {
     return peopleData;
   }
 
-  handleEventChange(event) {
+  handleEventChange = event => {
     this.setState({ event });
-  }
+  };
 
-  copyUrl() {
+  copyUrl = () => {
     clipboard.writeText(this.state.shortUrl);
-  }
+  };
 
-  edit() {
+  edit = () => {
+    const { ranking, peopleData } = this.state;
     this.setState({
-      redirectPath: `/edit?name=${encodeURIComponent(this.state.ranking.name)}&wcaids=${_.map(this.state.peopleData, 'person.wcaId').join(',')}`
+      redirectPath: `/edit?name=${encodeURIComponent(ranking.name)}&wcaids=${_.map(peopleData, 'person.wcaId').join(',')}`
     });
-  }
+  };
 
-  downloadImage() {
+  downloadImage = () => {
     const { event, ranking } = this.state;
     const rankingName = ranking.name.toLowerCase().replace(/\s+/, '-');
     const filename = `rankings-${rankingName}-${event.id}.png`;
@@ -84,7 +80,7 @@ export default class Ranking extends Component {
       a.href = canvas.toDataURL();
       a.click();
     });
-  }
+  };
 
   render() {
     const { redirectPath, ranking, peopleData, event, loading } = this.state;

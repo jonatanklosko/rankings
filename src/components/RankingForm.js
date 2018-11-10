@@ -16,15 +16,11 @@ export default class RankingForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ranking: rankingFromSearchParams(this.props.location.search),
+      ranking: rankingFromSearchParams(props.location.search),
       people: [],
       redirectPath: null,
       loading: true
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePeopleChange = this.handlePeopleChange.bind(this);
   }
 
   componentDidMount() {
@@ -35,23 +31,24 @@ export default class RankingForm extends Component {
       }));
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
+    const { ranking, people } = this.state;
     this.setState({
-      redirectPath: `/show?name=${encodeURIComponent(this.state.ranking.name)}&wcaids=${_.map(this.state.people, 'wcaId').join(',')}`
+      redirectPath: `/show?name=${encodeURIComponent(ranking.name)}&wcaids=${_.map(people, 'wcaId').join(',')}`
     });
-  }
+  };
 
-  handleNameChange(event) {
+  handleNameChange = event => {
     const { ranking } = this.state;
     this.setState({
       ranking: { ...ranking, name: event.target.value }
     });
-  }
+  };
 
-  handlePeopleChange(people) {
+  handlePeopleChange = people => {
     this.setState({ people });
-  }
+  };
 
   render() {
     const { redirectPath, ranking, people, loading } = this.state;

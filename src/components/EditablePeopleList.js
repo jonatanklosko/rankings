@@ -30,7 +30,7 @@ export default class EditablePeopleList extends PureComponent {
           </Grid>
           <Grid item xs={12}>
             <List dense style={{ maxHeight: 200, overflow: 'auto' }}>
-              {this.props.people.map(person => (
+              {_.sortBy(this.props.people, 'name').map(person => (
                 <ListItem key={person.wcaId}>
                   <Avatar src={person.avatar.thumbUrl} />
                   <ListItemText primary={person.name} />

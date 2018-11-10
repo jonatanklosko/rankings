@@ -73,7 +73,7 @@ export default class Ranking extends Component {
     const { event, ranking } = this.state;
     const rankingName = ranking.name.toLowerCase().replace(/\s+/, '-');
     const filename = `rankings-${rankingName}-${event.id}.png`;
-    html2canvas(this.imageArea).then(canvas => {
+    html2canvas(this.imageArea, { logging: false }).then(canvas => {
       const a = document.createElement('a');
       a.download = filename;
       a.href = canvas.toDataURL();

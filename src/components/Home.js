@@ -38,7 +38,8 @@ export default class Navigation extends Component {
         </Grid>
         <Grid item>
           <Typography variant="subtitle1">
-            WCA-like rankings created by you!
+            <a href="https://www.worldcubeassociation.org/results/events.php" target="_blank" rel="noopener noreferrer">WCA</a>-like
+            rankings created by you!
             Select a group of people and see how they are doing compared to each other.
           </Typography>
         </Grid>

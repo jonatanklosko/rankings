@@ -1,3 +1,5 @@
+import { uniq } from './utils';
+
 const googleUrlShortenerApiUrl = 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyCgOHkmUMcWKJ0tRlwEs-rzBZ1WA7sTZTI';
 
 export const shortenUrl = longUrl =>
@@ -12,7 +14,7 @@ export const shortenUrl = longUrl =>
 export const rankingFromSearchParams = search => {
   const params = new URLSearchParams(search);
   return {
-    wcaIds: params.get('wcaids') ? params.get('wcaids').split(',') : [],
+    wcaIds: params.get('wcaids') ? uniq(params.get('wcaids').split(',')) : [],
     name: params.get('name') || ''
   };
 };

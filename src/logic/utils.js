@@ -37,3 +37,6 @@ export const readWcaIdsFromFile = file => {
     reader.readAsText(file);
   });
 };
+
+export const uniq = array =>
+  [...new Set(array)];

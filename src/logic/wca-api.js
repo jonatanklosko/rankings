@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const WCA_IDS_QUERY_LIMIT = 500;
+
 export const searchPeople = query =>
   apiFetch(`/search/users?persons_table=true&q=${query}`)
     .then(data => data.result);
@@ -7,7 +9,8 @@ export const searchPeople = query =>
 const personDataByWcaIdCache = new Map();
 
 export const getPeopleByWcaIds = wcaIds => {
-  const [cachedWcaIds, wcaIdsToFetch] = _.partition(wcaIds, wcaId => personDataByWcaIdCache.has(wcaId));
+  const [cachedWcaIds, allWcaIdsToFetch] = _.partition(wcaIds, wcaId => personDataByWcaIdCache.has(wcaId));
+  const wcaIdsToFetch = allWcaIdsToFetch.slice(0, WCA_IDS_QUERY_LIMIT);
   const cachedPeopleData = _.map(cachedWcaIds, wcaId => personDataByWcaIdCache.get(wcaId));
   const promises = _.map(_.chunk(wcaIdsToFetch, 100), wcaIdsSubset =>
     apiFetch(`/persons?per_page=100&wca_ids=${wcaIdsSubset.join(',')}`)

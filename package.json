@@ -27,7 +27,7 @@
     "clipboard-polyfill": "^2.4.6",
     "downshift": "^3.1.5",
     "html2canvas": "^1.0.0-alpha.12",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.2.2",

@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 
+import githubLogoUrl from './github.svg';
+
 export default class Navigation extends Component {
   render() {
     return (
@@ -14,7 +16,7 @@ export default class Navigation extends Component {
             <Link to="/">Rankings</Link>
           </Typography>
           <IconButton component="a" href="https://github.com/jonatanklosko/rankings" target="_blank" rel="noopener noreferrer">
-            <img src="https://png.icons8.com/ios-glyphs/32/ffffff/github.png" alt="GitHub" />
+            <img src={githubLogoUrl} height="32" width="32" alt="GitHub" />
           </IconButton>
         </Toolbar>
       </AppBar>

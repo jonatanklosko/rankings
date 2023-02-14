@@ -36,8 +36,9 @@ export default class Ranking extends Component {
         loading: false,
         peopleData: this.withLocalRanks(peopleData)
       }));
-    shortenUrl(window.location.href)
-      .then(shortUrl => this.setState({ shortUrl }));
+    // The Google URL API no longer works
+    // shortenUrl(window.location.href)
+    //   .then(shortUrl => this.setState({ shortUrl }));
   }
 
   withLocalRanks(peopleData) {

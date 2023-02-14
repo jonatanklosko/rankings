@@ -23,6 +23,7 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@cubing/icons": "^1.0.6",
     "@material-ui/core": "^3.4.0",
     "clipboard-polyfill": "^2.4.6",
     "downshift": "^3.1.5",
